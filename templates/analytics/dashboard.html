@@ -1,0 +1,33 @@
+{% extends 'base/base.html' %}
+{% load get_item %}
+{% block title %}Analytics Dashboard{% endblock %}
+{% block content %}
+<div class="analytics-dashboard" style="max-width:900px;margin:auto;">
+  <h2>Analytics Dashboard</h2>
+  <h3>Event Counts</h3>
+  <table style="width:100%;margin-bottom:2em;">
+    <thead><tr><th>Event Type</th><th>Count</th></tr></thead>
+    <tbody>
+      {% for row in event_counts %}
+      <tr><td>{{ row.event_type }}</td><td>{{ row.count }}</td></tr>
+      {% empty %}
+      <tr><td colspan="2">No events found.</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  <h3>User Activity</h3>
+  <table style="width:100%;">
+    <thead><tr><th>User</th><th>Event Count</th></tr></thead>
+    <tbody>
+      {% for row in user_activity %}
+      <tr>
+        <td>{{ users|get_item:row.user_id|default:'Unknown' }}</td>
+        <td>{{ row.count }}</td>
+      </tr>
+      {% empty %}
+      <tr><td colspan="2">No user activity found.</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

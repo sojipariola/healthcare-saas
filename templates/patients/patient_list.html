@@ -1,0 +1,20 @@
+{% extends 'base/base.html' %}
+{% block title %}Patients{% endblock %}
+{% block content %}
+<h2>Patients</h2>
+<ul>
+  {% for patient in patients %}
+    <li>
+      <a href="{% url 'patient_detail' patient.pk %}">{{ patient.first_name }} {{ patient.last_name }}</a> ({{ patient.date_of_birth }})
+      {% if perms.patients.change_patient %}
+        <a href="{% url 'patient_edit' patient.pk %}">Edit</a>
+      {% endif %}
+      {% if perms.patients.delete_patient %}
+        <a href="{% url 'patient_delete' patient.pk %}">Delete</a>
+      {% endif %}
+    </li>
+  {% empty %}
+    <li>No patients found.</li>
+  {% endfor %}
+</ul>
+{% endblock %}

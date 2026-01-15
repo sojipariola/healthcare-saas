@@ -1,0 +1,15 @@
+{% extends 'base/base.html' %}
+{% block title %}Patient Detail{% endblock %}
+{% block content %}
+<h2>{{ patient.first_name }} {{ patient.last_name }}</h2>
+<p>Date of Birth: {{ patient.date_of_birth }}</p>
+<p>Email: {{ patient.email }}</p>
+<p>Phone: {{ patient.phone }}</p>
+<a href="{% url 'patient_list' %}">Back to list</a>
+{% if perms.patients.change_patient %}
+	<a href="{% url 'patient_edit' patient.pk %}">Edit</a>
+{% endif %}
+{% if perms.patients.delete_patient %}
+	<a href="{% url 'patient_delete' patient.pk %}">Delete</a>
+{% endif %}
+{% endblock %}

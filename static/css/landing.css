@@ -1,0 +1,18 @@
+body { font-family: 'Segoe UI', Arial, sans-serif; background: #f8fafc; margin: 0; }
+.hero { background: linear-gradient(90deg, #0f4c81 60%, #38b6ff 100%); color: #fff; padding: 4rem 0; text-align: center; }
+.hero-content { max-width: 600px; margin: 0 auto; }
+.cta-btn { background: #38b6ff; color: #fff; padding: 1rem 2.5rem; border-radius: 2rem; font-size: 1.2rem; text-decoration: none; font-weight: bold; box-shadow: 0 2px 8px rgba(0,0,0,0.08); transition: background 0.2s; }
+.cta-btn:hover { background: #0f4c81; }
+.features { background: #fff; padding: 3rem 0; }
+.feature-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 2rem; }
+.feature { background: #f0f4f8; border-radius: 1rem; padding: 2rem; width: 250px; box-shadow: 0 1px 4px rgba(0,0,0,0.04); }
+.features h3 { margin-bottom: 2rem; }
+.subscription { background: #f8fafc; padding: 3rem 0; }
+.plans { display: flex; flex-wrap: wrap; justify-content: center; gap: 2rem; }
+.plan { background: #fff; border-radius: 1rem; padding: 2rem; width: 250px; box-shadow: 0 1px 8px rgba(0,0,0,0.06); text-align: center; }
+.plan.popular { border: 2px solid #38b6ff; }
+.plan-cta { display: inline-block; margin-top: 1rem; background: #0f4c81; color: #fff; padding: 0.7rem 2rem; border-radius: 2rem; text-decoration: none; font-weight: bold; transition: background 0.2s; }
+.plan-cta:hover { background: #38b6ff; }
+.price { font-size: 2rem; color: #0f4c81; margin: 1rem 0; }
+@media (max-width: 900px) { .feature-grid, .plans { flex-direction: column; align-items: center; } }
+

@@ -1,0 +1,22 @@
+{% extends 'base/base.html' %}
+{% block title %}Profile{% endblock %}
+{% block content %}
+<div class="profile-container">
+  <h2>{{ user.get_full_name|default:user.username }}'s Profile</h2>
+  <div class="profile-main">
+    <div class="profile-pic">
+      {% if user.profile_picture %}
+        <img src="{{ user.profile_picture.url }}" alt="Profile Picture" style="width:120px;height:120px;border-radius:50%;object-fit:cover;">
+      {% else %}
+        <img src="/static/img/default_profile.png" alt="Default Profile" style="width:120px;height:120px;border-radius:50%;object-fit:cover;">
+      {% endif %}
+    </div>
+    <div class="profile-info">
+      <p><strong>Email:</strong> {{ user.email }}</p>
+      <p><strong>Role:</strong> {{ user.role|title }}</p>
+      <p><strong>Tenant:</strong> {{ user.tenant }}</p>
+      <p><strong>Joined:</strong> {{ user.date_joined|date:'Y-m-d' }}</p>
+    </div>
+  </div>
+</div>
+{% endblock %}

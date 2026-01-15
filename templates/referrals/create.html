@@ -1,0 +1,34 @@
+{% extends 'base/base.html' %}
+{% block title %}New Referral{% endblock %}
+{% block content %}
+<div class="form-container" style="max-width:600px;">
+  <h2>New Referral</h2>
+  <form method="post">
+    {% csrf_token %}
+    <label for="patient">Patient</label>
+    <select name="patient" id="patient" required>
+      <option value="">Select patient</option>
+      {% for p in patients %}
+        <option value="{{ p.id }}">{{ p }}</option>
+      {% endfor %}
+    </select>
+    <label for="from_clinic">From Clinic</label>
+    <select name="from_clinic" id="from_clinic" required>
+      <option value="">Select clinic</option>
+        {% for c in clinics %}
+          <option value="{{ c.id }}">{{ c.name }} ({{ c.get_clinic_type_display }})</option>
+        {% endfor %}
+    </select>
+    <label for="to_clinic">To Clinic</label>
+    <select name="to_clinic" id="to_clinic" required>
+      <option value="">Select clinic</option>
+        {% for c in clinics %}
+          <option value="{{ c.id }}">{{ c.name }} ({{ c.get_clinic_type_display }})</option>
+        {% endfor %}
+    </select>
+    <label for="notes">Notes</label>
+    <textarea name="notes" id="notes" rows="3"></textarea>
+    <button type="submit">Create Referral</button>
+  </form>
+</div>
+{% endblock %}

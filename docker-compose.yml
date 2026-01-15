@@ -1,0 +1,42 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:15
+    environment:
+      POSTGRES_DB: healthcare_saas
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+  web:
+    build: .
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - .:/app
+    ports:
+      - "8000:8000"
+    environment:
+      DEBUG: "True"
+      DJANGO_SECRET_KEY: dev-key
+      DATABASE_URL: postgresql://postgres:postgres@db:5432/healthcare_saas
+    depends_on:
+      - db
+
+  celery:
+    build: .
+    command: celery -A config worker -l info
+    volumes:
+      - .:/app
+    environment:
+      DEBUG: "True"
+      DJANGO_SECRET_KEY: dev-key
+      DATABASE_URL: postgresql://postgres:postgres@db:5432/healthcare_saas
+    depends_on:
+      - db
+
+volumes:
+  postgres_data:

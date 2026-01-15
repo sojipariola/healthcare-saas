@@ -1,0 +1,74 @@
+{% extends 'base/base.html' %}
+{% block title %}Register{% endblock %}
+{% block content %}
+<div class="form-container">
+  <h2>Register</h2>
+  <p class="info">Your account will require admin approval before you can log in.</p>
+  <form method="post">
+    {% csrf_token %}
+    {# Render all fields except password1/password2 #}
+    {% for field in form.visible_fields %}
+      {% if field.name != 'password1' and field.name != 'password2' %}
+        <p>
+          {{ field.label_tag }} {{ field }}
+          {% if field.errors %}<span class="error">{{ field.errors }}</span>{% endif %}
+        </p>
+      {% endif %}
+    {% endfor %}
+    <p>
+      {{ form.password1.label_tag }} {{ form.password1 }}
+      {% if form.password1.errors %}<span class="error">{{ form.password1.errors }}</span>{% endif %}
+    </p>
+    <ul id="password-rules" style="margin-bottom:0.5em;list-style:none;padding-left:0;">
+      <li id="pw-length" style="color:#e53935;">&#10007; At least 8 characters</li>
+      <li id="pw-common" style="color:#e53935;">&#10007; Not a common password</li>
+      <li id="pw-match" style="color:#e53935;">&#10007; Passwords match</li>
+    </ul>
+    <p>
+      {{ form.password2.label_tag }} {{ form.password2 }}
+      {% if form.password2.errors %}<span class="error">{{ form.password2.errors }}</span>{% endif %}
+    </p>
+    <button type="submit">Register</button>
+  <script>
+    const pw1 = document.getElementById('id_password1');
+    const pw2 = document.getElementById('id_password2');
+    const ruleLength = document.getElementById('pw-length');
+    const ruleCommon = document.getElementById('pw-common');
+    const ruleMatch = document.getElementById('pw-match');
+    function checkPasswordRules() {
+      const val1 = pw1.value;
+      const val2 = pw2.value;
+      // Length
+      if (val1.length >= 8) {
+        ruleLength.style.color = '#388e3c';
+        ruleLength.innerHTML = '&#10003; At least 8 characters';
+      } else {
+        ruleLength.style.color = '#e53935';
+        ruleLength.innerHTML = '&#10007; At least 8 characters';
+      }
+      // Common
+      const common = ['password', '123456', 'qwerty', 'letmein'];
+      if (val1 && !common.includes(val1.toLowerCase())) {
+        ruleCommon.style.color = '#388e3c';
+        ruleCommon.innerHTML = '&#10003; Not a common password';
+      } else {
+        ruleCommon.style.color = '#e53935';
+        ruleCommon.innerHTML = '&#10007; Not a common password';
+      }
+      // Match
+      if (val1 && val2 && val1 === val2) {
+        ruleMatch.style.color = '#388e3c';
+        ruleMatch.innerHTML = '&#10003; Passwords match';
+      } else {
+        ruleMatch.style.color = '#e53935';
+        ruleMatch.innerHTML = '&#10007; Passwords match';
+      }
+    }
+    if (pw1 && pw2) {
+      pw1.addEventListener('input', checkPasswordRules);
+      pw2.addEventListener('input', checkPasswordRules);
+    }
+  </script>
+  </form>
+</div>
+{% endblock %}

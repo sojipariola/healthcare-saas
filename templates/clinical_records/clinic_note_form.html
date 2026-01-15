@@ -1,0 +1,28 @@
+{% extends 'base/base.html' %}
+{% load get_item %}
+{% block title %}Clinic-Specific Note{% endblock %}
+{% block content %}
+<div class="form-container" style="max-width:700px;">
+  <h2>Clinic-Specific Note</h2>
+  <form method="post">
+    {% csrf_token %}
+    <label for="patient">Patient</label>
+    <select name="patient" id="patient" required>
+      {% for p in patients %}
+        <option value="{{ p.id }}" {% if p.id == patient_id %}selected{% endif %}>{{ p }}</option>
+      {% endfor %}
+    </select>
+    <label for="clinic_type">Clinic Type</label>
+    <select name="clinic_type" id="clinic_type" required>
+      {% for key, label in clinic_types %}
+        <option value="{{ key }}" {% if key == clinic_type %}selected{% endif %}>{{ label }}</option>
+      {% endfor %}
+    </select>
+    {% for section in template %}
+      <label for="section_{{ forloop.counter }}">{{ section }}</label>
+      <textarea name="section_{{ forloop.counter }}" id="section_{{ forloop.counter }}" rows="2">{{ values|get_item:section }}</textarea>
+    {% endfor %}
+    <button type="submit">Save Note</button>
+  </form>
+</div>
+{% endblock %}

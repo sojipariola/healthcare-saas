@@ -1,0 +1,34 @@
+{% extends 'base/base.html' %}
+{% block title %}Referrals{% endblock %}
+{% block content %}
+<div class="form-container" style="max-width:900px;">
+  <h2>Referrals</h2>
+  <a href="/referrals/create/" class="cta-btn" style="float:right;margin-bottom:1em;">New Referral</a>
+  <table style="width:100%;margin-top:1.5rem;border-collapse:collapse;">
+    <thead>
+      <tr style="background:#f0f4f8;">
+        <th>Patient</th>
+        <th>From Clinic</th>
+        <th>To Clinic</th>
+        <th>Referred By</th>
+        <th>Created</th>
+        <th>Accepted</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for ref in referrals %}
+      <tr style="border-bottom:1px solid #e0e0e0;">
+          <td>{{ ref.patient }}</td>
+          <td>{{ ref.from_clinic }}<br><span style="font-size:0.9em;color:#888;">{{ ref.from_clinic.get_clinic_type_display }}</span></td>
+          <td>{{ ref.to_clinic }}<br><span style="font-size:0.9em;color:#888;">{{ ref.to_clinic.get_clinic_type_display }}</span></td>
+        <td>{{ ref.referred_by }}</td>
+        <td>{{ ref.created_at|date:'Y-m-d H:i' }}</td>
+        <td>{% if ref.accepted %}Yes{% else %}No{% endif %}</td>
+      </tr>
+      {% empty %}
+      <tr><td colspan="6" style="padding:1rem;text-align:center;">No referrals found.</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

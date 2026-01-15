@@ -1,0 +1,18 @@
+{% extends 'base/base.html' %}
+{% block title %}Dashboard{% endblock %}
+{% block content %}
+<div class="form-container" style="max-width:700px;">
+  <h2>Welcome to your Dashboard</h2>
+  <p>Hello, {{ user.get_full_name|default:user.username }}!</p>
+  <ul style="margin-top:2rem;">
+    <li><a href="/patients/">Manage Patients</a></li>
+    <li><a href="/appointments/">View Appointments</a></li>
+    <li><a href="/labs/">Lab Results</a></li>
+    <li><a href="/billing/">Billing & Subscriptions</a></li>
+    {% if user.is_staff or user.is_superuser %}
+      <li><a href="/audit_logs/">Audit Logs</a></li>
+      <li><a href="/admin/">Admin Panel</a></li>
+    {% endif %}
+  </ul>
+</div>
+{% endblock %}

@@ -1,0 +1,28 @@
+<aside class="sidebar">
+  <ul>
+    <li><a href="/">Home</a></li>
+    {% if user.is_authenticated %}
+        <li><a href="/patients/">Patients</a></li>
+        <li><a href="/appointments/">Appointments</a></li>
+        <li><a href="/referrals/">Referrals</a></li>
+        <li><a href="/clinical-records/">Clinical Records</a></li>
+        <li><a href="/labs/">Lab Results</a></li>
+        <li><a href="/documents/upload/">Upload Document</a></li>
+        <li><a href="/clinical-records/ai-note/">AI Note-Taking</a></li>
+        <li><a href="/clinical-records/clinic-note/create/">Clinic-Specific Note</a></li>
+        <li><a href="/analytics/dashboard/">Analytics</a></li>
+        <li><a href="/dashboard/">Dashboard</a></li>
+        <li><a href="/billing/">Billing</a></li>
+      {% if user.is_staff or user.is_superuser %}
+        <li><a href="/audit_logs/">Audit Logs</a></li>
+        <li><a href="/admin/">Admin</a></li>
+      {% endif %}
+    {% endif %}
+    <li><a href="{% url 'login' %}">Login</a></li>
+    <li><a href="{% url 'register' %}">Register</a></li>
+  </ul>
+  <script src="/static/js/sidebar_accordion.js"></script>
+</aside>
+
+
+

@@ -1,0 +1,31 @@
+{% extends 'base/base.html' %}
+{% block title %}Audit Logs{% endblock %}
+{% block content %}
+<div class="form-container" style="max-width:900px;">
+  <h2>Audit Logs</h2>
+  <table style="width:100%;margin-top:1.5rem;border-collapse:collapse;">
+    <thead>
+      <tr style="background:#f0f4f8;">
+        <th style="text-align:left;padding:0.5rem;">Timestamp</th>
+        <th style="text-align:left;padding:0.5rem;">User</th>
+        <th style="text-align:left;padding:0.5rem;">Tenant</th>
+        <th style="text-align:left;padding:0.5rem;">Action</th>
+        <th style="text-align:left;padding:0.5rem;">Details</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for log in logs %}
+      <tr style="border-bottom:1px solid #e0e0e0;">
+        <td style="padding:0.5rem;">{{ log.timestamp }}</td>
+        <td style="padding:0.5rem;">{{ log.user }}</td>
+        <td style="padding:0.5rem;">{{ log.tenant }}</td>
+        <td style="padding:0.5rem;">{{ log.action }}</td>
+        <td style="padding:0.5rem;">{{ log.details }}</td>
+      </tr>
+      {% empty %}
+      <tr><td colspan="5" style="padding:1rem;text-align:center;">No audit logs found.</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

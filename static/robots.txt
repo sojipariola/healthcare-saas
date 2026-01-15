@@ -1,0 +1,3 @@
+User-agent: *
+Disallow:
+Sitemap: https://www.cliniccloud.com/sitemap.xml

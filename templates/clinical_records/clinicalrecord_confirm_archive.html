@@ -1,0 +1,11 @@
+{% extends 'base/base.html' %}
+{% block title %}Archive Clinical Record{% endblock %}
+{% block content %}
+<h2>Archive Clinical Record</h2>
+<p>Are you sure you want to archive this record for {{ record.patient }}?</p>
+<form method="post">
+  {% csrf_token %}
+  <button type="submit">Yes, archive</button>
+  <a href="{% url 'clinicalrecord_detail' record.pk %}">Cancel</a>
+</form>
+{% endblock %}

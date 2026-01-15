@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}ClinicCloud{% endblock %}</title>
+    <meta name="description" content="ClinicCloud: World-class, secure, multi-tenant healthcare SaaS platform. PHI-compliant, modular, and AI-ready.">
+    <meta name="keywords" content="healthcare, SaaS, clinic, cloud, PHI, HIPAA, multi-tenant, EHR, AI, compliance, medical software">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://www.cliniccloud.com/">
+    <!-- Open Graph -->
+    <meta property="og:title" content="ClinicCloud - Modern Healthcare SaaS" />
+    <meta property="og:description" content="World-class, secure, multi-tenant healthcare SaaS platform. PHI-compliant, modular, and AI-ready." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://www.cliniccloud.com/" />
+    <meta property="og:site_name" content="ClinicCloud" />
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="ClinicCloud - Modern Healthcare SaaS" />
+    <meta name="twitter:description" content="World-class, secure, multi-tenant healthcare SaaS platform. PHI-compliant, modular, and AI-ready." />
+    <link rel="stylesheet" href="/static/css/main.css">
+    {% block extra_head %}{% endblock %}
+</head>
+<body>
+    <header>
+      {% include 'includes/header.html' %}
+    </header>
+    <div class="layout">
+        <nav>
+          {% include 'includes/sidebar.html' %}
+        </nav>
+        <main>
+            {% include 'includes/flashmessages.html' %}
+            {% block content %}{% endblock %}
+        </main>
+    </div>
+    <footer>
+      {% include 'includes/footer.html' %}
+    </footer>
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

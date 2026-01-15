@@ -1,0 +1,15 @@
+{% extends 'base/base.html' %}
+{% block title %}Lab Result Detail{% endblock %}
+{% block content %}
+<h2>Lab Result</h2>
+<p>Patient: {{ result.patient }}</p>
+<p>Created: {{ result.created_at }}</p>
+<p>Result: {{ result.result }}</p>
+<a href="{% url 'labresult_list' %}">Back to list</a>
+{% if perms.labs.change_labresult %}
+	<a href="{% url 'labresult_edit' result.pk %}">Edit</a>
+{% endif %}
+{% if perms.labs.delete_labresult %}
+	<a href="{% url 'labresult_delete' result.pk %}">Delete</a>
+{% endif %}
+{% endblock %}

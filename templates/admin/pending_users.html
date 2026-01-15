@@ -1,0 +1,31 @@
+{% extends 'admin/base_site.html' %}
+{% block content %}
+<h1>Pending User Approvals</h1>
+{% if users %}
+  <table class="admin-table">
+    <tr>
+      <th>Username</th>
+      <th>Email</th>
+      <th>Tenant</th>
+      <th>Date Joined</th>
+      <th>Approve</th>
+    </tr>
+    {% for user in users %}
+    <tr>
+      <td>{{ user.username }}</td>
+      <td>{{ user.email }}</td>
+      <td>{{ user.tenant }}</td>
+      <td>{{ user.date_joined }}</td>
+      <td>
+        <form method="post" action="{% url 'approve_user' user.id %}">
+          {% csrf_token %}
+          <button type="submit">Approve</button>
+        </form>
+      </td>
+    </tr>
+    {% endfor %}
+  </table>
+{% else %}
+  <p>No users pending approval.</p>
+{% endif %}
+{% endblock %}

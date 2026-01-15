@@ -1,0 +1,15 @@
+{% extends 'base/base.html' %}
+{% block title %}Appointment Detail{% endblock %}
+{% block content %}
+<h2>Appointment</h2>
+<p>Patient: {{ appointment.patient }}</p>
+<p>Scheduled For: {{ appointment.scheduled_for }}</p>
+<p>Status: {{ appointment.status }}</p>
+<a href="{% url 'appointment_list' %}">Back to list</a>
+{% if perms.appointments.change_appointment %}
+	<a href="{% url 'appointment_edit' appointment.pk %}">Edit</a>
+{% endif %}
+{% if perms.appointments.delete_appointment %}
+	<a href="{% url 'appointment_delete' appointment.pk %}">Delete</a>
+{% endif %}
+{% endblock %}

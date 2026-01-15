@@ -1,0 +1,17 @@
+<svg width="600" height="300" viewBox="0 0 600 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="600" height="300" rx="40" fill="#F0F4F8"/>
+  <g>
+    <ellipse cx="120" cy="150" rx="60" ry="80" fill="#B3E5FC"/>
+    <ellipse cx="480" cy="150" rx="60" ry="80" fill="#FFCCBC"/>
+    <ellipse cx="300" cy="150" rx="100" ry="120" fill="#C8E6C9"/>
+    <circle cx="300" cy="150" r="60" fill="#FFF" stroke="#90CAF9" stroke-width="6"/>
+    <text x="300" y="160" text-anchor="middle" font-size="32" font-family="Arial" fill="#1976D2">ClinicCloud</text>
+    <text x="300" y="200" text-anchor="middle" font-size="18" font-family="Arial" fill="#388E3C">AI-powered Telemedicine & Analytics</text>
+  </g>
+  <g>
+    <rect x="60" y="220" width="120" height="40" rx="20" fill="#1976D2"/>
+    <text x="120" y="245" text-anchor="middle" font-size="18" font-family="Arial" fill="#FFF">Get Started</text>
+    <rect x="420" y="220" width="120" height="40" rx="20" fill="#388E3C"/>
+    <text x="480" y="245" text-anchor="middle" font-size="18" font-family="Arial" fill="#FFF">Learn More</text>
+  </g>
+</svg>

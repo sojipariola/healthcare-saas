@@ -1,0 +1,11 @@
+{% extends 'base/base.html' %}
+{% block title %}Add Lab Result{% endblock %}
+{% block content %}
+<h2>Add Lab Result</h2>
+<form method="post">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit">Save</button>
+</form>
+<a href="{% url 'labresult_list' %}">Back to list</a>
+{% endblock %}

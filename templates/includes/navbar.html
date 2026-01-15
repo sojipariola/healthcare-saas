@@ -1,0 +1,61 @@
+<nav>
+  <ul>
+    <li><a href="/"><span class="icon">🏠</span>Home</a></li>
+    <li class="dropdown">
+      <a href="#" class="dropdown-toggle"><span class="icon">👥</span>Patients</a>
+      <ul class="dropdown-menu">
+        <li><a href="/patients/"><span class="icon">🧑‍🤝‍🧑</span>Patients</a></li>
+        <li><a href="/appointments/"><span class="icon">📅</span>Appointments</a></li>
+        <li><a href="/referrals/"><span class="icon">🔗</span>Referrals</a></li>
+      </ul>
+    </li>
+    <li class="dropdown">
+      <a href="#" class="dropdown-toggle"><span class="icon">🩺</span>Clinical</a>
+      <ul class="dropdown-menu">
+        <li><a href="/clinical-records/"><span class="icon">📄</span>Clinical Records</a></li>
+        <li><a href="/labs/"><span class="icon">🧪</span>Lab Results</a></li>
+        <li><a href="/documents/upload/"><span class="icon">📤</span>Upload Document</a></li>
+      </ul>
+    </li>
+    <li class="dropdown">
+      <a href="#" class="dropdown-toggle"><span class="icon">🤖</span>AI & Notes</a>
+      <ul class="dropdown-menu">
+        <li><a href="/clinical-records/ai-note/"><span class="icon">📝</span>AI Note-Taking</a></li>
+        <li><a href="/clinical-records/clinic-note/create/"><span class="icon">🏥</span>Clinic-Specific Note</a></li>
+      </ul>
+    </li>
+    <!-- Analytics link moved to Admin dropdown -->
+    {% if user.is_authenticated %}
+      <!-- Dashboard removed as requested -->
+      <li><a href="/billing/"><span class="icon">💳</span>Billing</a></li>
+      {% if user.is_staff or user.is_superuser %}
+        <li class="dropdown admin-dropdown">
+          <a href="#" class="dropdown-toggle"><span class="icon">🩺</span><span style="font-weight:bold;color:#1976d2;">Admin</span></a>
+          <ul class="dropdown-menu clinical-admin-menu" style="background:linear-gradient(120deg,#e3f2fd 60%,#f8bbd0 100%);border:2px solid #1976d2;box-shadow:0 4px 16px rgba(25,118,210,0.12);">
+            <li><a href="/audit_logs/"><span class="icon">🩻</span><span style="color:#1976d2;">Audit Logs</span></a></li>
+            <li><a href="/analytics/dashboard/"><span class="icon">📊</span><span style="color:#388e3c;">Analytics</span></a></li>
+            <li><a href="/admin/"><span class="icon">🧬</span><span style="color:#d32f2f;">Django Admin</span></a></li>
+          </ul>
+        </li>
+      {% endif %}
+      <li class="dropdown" style="min-width:140px;">
+        <a href="#" class="dropdown-toggle">
+          <span class="icon">👤</span>{{ user.get_full_name|default:user.username }}
+        </a>
+        <ul class="dropdown-menu">
+          <li><a href="/users/profile/"><span class="icon">🧑</span>Profile</a></li>
+          <li>
+            <form action="{% url 'logout' %}" method="post" style="display:inline;">
+              {% csrf_token %}
+              <button type="submit" style="background:none;border:none;padding:0;margin:0;color:#fff;cursor:pointer;width:100%;text-align:left;"><span class="icon">🚪</span>Logout</button>
+            </form>
+          </li>
+        </ul>
+      </li>
+    {% else %}
+      <li><a href="{% url 'login' %}"><span class="icon">🔑</span>Login</a></li>
+      <li><a href="{% url 'register' %}"><span class="icon">📝</span>Register</a></li>
+    {% endif %}
+  </ul>
+  <link rel="stylesheet" href="/static/css/navbar_worldclass.css">
+</nav>

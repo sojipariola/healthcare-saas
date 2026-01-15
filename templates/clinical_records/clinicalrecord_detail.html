@@ -1,0 +1,15 @@
+{% extends 'base/base.html' %}
+{% block title %}Clinical Record Detail{% endblock %}
+{% block content %}
+<h2>Clinical Record</h2>
+<p>Patient: {{ record.patient }}</p>
+<p>Created: {{ record.created_at }}</p>
+<p>Note: {{ record.note }}</p>
+<a href="{% url 'clinicalrecord_list' %}">Back to list</a>
+{% if perms.clinical_records.change_clinicalrecord %}
+	<a href="{% url 'clinicalrecord_edit' record.pk %}">Edit</a>
+{% endif %}
+{% if perms.clinical_records.delete_clinicalrecord %}
+	<a href="{% url 'clinicalrecord_archive' record.pk %}">Archive</a>
+{% endif %}
+{% endblock %}

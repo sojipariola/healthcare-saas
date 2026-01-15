@@ -1,0 +1,54 @@
+{% extends 'base/base.html' %}
+{% block title %}Login{% endblock %}
+{% block content %}
+<div class="form-container">
+  <h2>Login</h2>
+  <form method="post">
+    <input type="hidden" name="next" value="{{ next }}">
+    {% csrf_token %}
+    {# DEBUG: Show all non-field errors #}
+    {% if form.non_field_errors %}
+      <div class="error" style="margin-bottom:1em;">
+        {% for error in form.non_field_errors %}
+          <div>{{ error }}</div>
+        {% endfor %}
+      </div>
+    {% endif %}
+    {# Render Tenant field first #}
+    <p>
+      {{ form.tenant.label_tag }} {{ form.tenant }}
+      {% if form.tenant.errors %}<span class="error">{{ form.tenant.errors }}</span>{% endif %}
+    </p>
+    {# Render the rest of the fields except tenant #}
+    {% for field in form.visible_fields %}
+      {% if field.name != 'tenant' %}
+        <p>
+          {{ field.label_tag }}
+          {% if field.field.widget.input_type == 'password' %}
+            <span style="position:relative;display:block;">
+              {{ field }}
+              <button type="button" onclick="togglePassword(this)" style="position:absolute;right:10px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;font-size:0.95em;color:#1976d2;">Show</button>
+            </span>
+          {% else %}
+            {{ field }}
+          {% endif %}
+          {% if field.errors %}<span class="error">{{ field.errors }}</span>{% endif %}
+        </p>
+      {% endif %}
+    {% endfor %}
+    <button type="submit">Login</button>
+  </form>
+  <script>
+    function togglePassword(btn) {
+      const input = btn.parentElement.querySelector('input');
+      if (input.type === 'password') {
+        input.type = 'text';
+        btn.textContent = 'Hide';
+      } else {
+        input.type = 'password';
+        btn.textContent = 'Show';
+      }
+    }
+  </script>
+</div>
+{% endblock %}
