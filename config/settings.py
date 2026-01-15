@@ -82,6 +82,7 @@ INSTALLED_APPS = [
     "documents",
     "analytics",
     "ai",
+    "fhir",
 ]
 
 MIDDLEWARE = [
