@@ -21,8 +21,19 @@ CELERY_BEAT_SCHEDULE = {
 }
 
 # Celery broker/result backend (use Redis or other broker in production)
-CELERY_BROKER_URL = os.environ.get("CELERY_BROKER_URL") or os.environ.get("REDIS_URL", "redis://localhost:6379/0")
-CELERY_RESULT_BACKEND = os.environ.get("CELERY_RESULT_BACKEND") or os.environ.get("REDIS_URL", "redis://localhost:6379/0")
+# Handle Heroku Redis with SSL (rediss://) by converting to redisssl protocol
+_redis_url = os.environ.get("REDIS_URL", "redis://localhost:6379/0")
+_broker_url = os.environ.get("CELERY_BROKER_URL") or _redis_url
+_result_url = os.environ.get("CELERY_RESULT_BACKEND") or _redis_url
+
+# Convert rediss:// to redisssl:// for Celery SSL support
+if _broker_url.startswith("rediss://"):
+    _broker_url = _broker_url.replace("rediss://", "redisssl://", 1) + "?ssl_cert_reqs=CERT_NONE"
+if _result_url.startswith("rediss://"):
+    _result_url = _result_url.replace("rediss://", "redisssl://", 1) + "?ssl_cert_reqs=CERT_NONE"
+
+CELERY_BROKER_URL = _broker_url
+CELERY_RESULT_BACKEND = _result_url
 
 # Email backend configuration
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
