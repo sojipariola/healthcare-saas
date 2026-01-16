@@ -21,19 +21,31 @@ CELERY_BEAT_SCHEDULE = {
 }
 
 # Celery broker/result backend (use Redis or other broker in production)
-# Handle Heroku Redis with SSL (rediss://) by converting to redisssl protocol
+# Handle Heroku Redis with SSL (rediss://) by disabling SSL verification
 _redis_url = os.environ.get("REDIS_URL", "redis://localhost:6379/0")
 _broker_url = os.environ.get("CELERY_BROKER_URL") or _redis_url
 _result_url = os.environ.get("CELERY_RESULT_BACKEND") or _redis_url
 
-# Convert rediss:// to redisssl:// for Celery SSL support
+# Heroku Redis uses rediss:// (SSL), convert to redis:// for local dev
+# For production Heroku Redis, add SSL parameters if using rediss://
 if _broker_url.startswith("rediss://"):
-    _broker_url = _broker_url.replace("rediss://", "redisssl://", 1) + "?ssl_cert_reqs=CERT_NONE"
+    # Use rediss protocol with SSL parameters for Celery
+    _broker_url = _broker_url + "?ssl_cert_reqs=CERT_NONE&ssl_check_hostname=False"
 if _result_url.startswith("rediss://"):
-    _result_url = _result_url.replace("rediss://", "redisssl://", 1) + "?ssl_cert_reqs=CERT_NONE"
+    _result_url = _result_url + "?ssl_cert_reqs=CERT_NONE&ssl_check_hostname=False"
 
 CELERY_BROKER_URL = _broker_url
 CELERY_RESULT_BACKEND = _result_url
+
+# Celery config for production
+CELERY_BROKER_USE_SSL = {
+    "keyfile": None,
+    "certfile": None,
+    "ca_certs": None,
+    "cert_reqs": "CERT_NONE"
+} if _broker_url.startswith("rediss://") else None
+
+CELERY_RESULT_BACKEND_USE_SSL = CELERY_BROKER_USE_SSL
 
 # Email backend configuration
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
