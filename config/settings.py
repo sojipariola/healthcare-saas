@@ -1,6 +1,7 @@
 # Celery beat schedule for free trial expiry notifications
 import os
 from pathlib import Path
+<<<<<<< HEAD
 
 import dj_database_url
 from celery.schedules import crontab
@@ -18,10 +19,29 @@ CELERY_BEAT_SCHEDULE = {
     "nightly-subscription-health-check": {
         "task": "billing.tasks.nightly_subscription_health_check",
         "schedule": crontab(minute=45, hour=1),  # 01:45 UTC daily
+=======
+from dotenv import load_dotenv
+from celery.schedules import crontab
+import dj_database_url
+
+CELERY_BEAT_SCHEDULE = {
+    'send-weekly-trial-expiry-notifications': {
+        'task': 'billing.tasks.weekly_trial_expiry_notifications',
+        'schedule': crontab(minute=0, hour=9, day_of_week='monday'),
+    },
+    'daily-trial-reminders': {
+        'task': 'billing.tasks.daily_trial_expiry_soft_reminder',
+        'schedule': crontab(minute=15, hour=8),  # 08:15 UTC daily
+    },
+    'nightly-subscription-health-check': {
+        'task': 'billing.tasks.nightly_subscription_health_check',
+        'schedule': crontab(minute=45, hour=1),  # 01:45 UTC daily
+>>>>>>> 453538e (Configure for Heroku deployment with PostgreSQL, Redis, and WhiteNoise)
     },
 }
 
 # Celery broker/result backend (use Redis or other broker in production)
+<<<<<<< HEAD
 # Handle Heroku Redis with SSL (rediss://) by disabling SSL verification
 _redis_url = os.environ.get("REDIS_URL", "redis://localhost:6379/0")
 _broker_url = os.environ.get("CELERY_BROKER_URL") or _redis_url
@@ -49,6 +69,13 @@ CELERY_RESULT_BACKEND_USE_SSL = CELERY_BROKER_USE_SSL
 
 # Email backend configuration
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+=======
+CELERY_BROKER_URL = os.environ.get("CELERY_BROKER_URL") or os.environ.get("REDIS_URL", "redis://localhost:6379/0")
+CELERY_RESULT_BACKEND = os.environ.get("CELERY_RESULT_BACKEND") or os.environ.get("REDIS_URL", "redis://localhost:6379/0")
+
+# Email backend configuration
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+>>>>>>> 453538e (Configure for Heroku deployment with PostgreSQL, Redis, and WhiteNoise)
 # For production, use SMTP:
 # EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 # EMAIL_HOST = os.environ.get('EMAIL_HOST', 'smtp.example.com')
@@ -59,8 +86,13 @@ EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 # DEFAULT_FROM_EMAIL = os.environ.get('DEFAULT_FROM_EMAIL', 'webmaster@example.com')
 # Use custom tenant-aware authentication backend
 AUTHENTICATION_BACKENDS = [
+<<<<<<< HEAD
     "users.auth_backend.TenantAwareAuthBackend",
     "django.contrib.auth.backends.ModelBackend",
+=======
+    'users.auth_backend.TenantAwareAuthBackend',
+    'django.contrib.auth.backends.ModelBackend',
+>>>>>>> 453538e (Configure for Heroku deployment with PostgreSQL, Redis, and WhiteNoise)
 ]
 
 # Use custom user model
@@ -85,7 +117,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/6.0/howto/deployment/checklist/
 
 # Load environment variables from .env file
+<<<<<<< HEAD
 load_dotenv(os.path.join(BASE_DIR, ".env"))
+=======
+load_dotenv(os.path.join(BASE_DIR, '.env'))
+>>>>>>> 453538e (Configure for Heroku deployment with PostgreSQL, Redis, and WhiteNoise)
 
 # Use environment variable for SECRET_KEY
 SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY", "unsafe-dev-key-change-me")
@@ -93,12 +129,16 @@ SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY", "unsafe-dev-key-change-me")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get("DJANGO_DEBUG", "True") == "True"
 
+<<<<<<< HEAD
 ALLOWED_HOSTS = os.environ.get(
     "DJANGO_ALLOWED_HOSTS", "localhost,127.0.0.1,[::1]"
 ).split(",")
 
 # Site URL for emails and absolute URLs
 SITE_URL = os.environ.get("SITE_URL", "http://localhost:8000")
+=======
+ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS", "localhost,127.0.0.1,[::1]").split(",")
+>>>>>>> 453538e (Configure for Heroku deployment with PostgreSQL, Redis, and WhiteNoise)
 
 
 # Application definition
@@ -110,10 +150,13 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+<<<<<<< HEAD
     # REST Framework & JWT
     "rest_framework",
     "corsheaders",
     "drf_spectacular",
+=======
+>>>>>>> 453538e (Configure for Heroku deployment with PostgreSQL, Redis, and WhiteNoise)
     # Project apps
     "common",
     "tenants",
@@ -129,14 +172,20 @@ INSTALLED_APPS = [
     "analytics",
     "ai",
     "fhir",
+<<<<<<< HEAD
     "admin_dashboard",
     "api",
+=======
+>>>>>>> 453538e (Configure for Heroku deployment with PostgreSQL, Redis, and WhiteNoise)
 ]
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "whitenoise.middleware.WhiteNoiseMiddleware",  # Serve static files on Heroku
+<<<<<<< HEAD
     "corsheaders.middleware.CorsMiddleware",  # CORS middleware (must be before CommonMiddleware)
+=======
+>>>>>>> 453538e (Configure for Heroku deployment with PostgreSQL, Redis, and WhiteNoise)
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
@@ -157,7 +206,10 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
+<<<<<<< HEAD
                 "common.context_processors.recent_patients",
+=======
+>>>>>>> 453538e (Configure for Heroku deployment with PostgreSQL, Redis, and WhiteNoise)
             ],
         },
     },
@@ -220,6 +272,7 @@ STATIC_ROOT = BASE_DIR / "staticfiles"
 # Enable WhiteNoise's GZip and caching support
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
+<<<<<<< HEAD
 # Media files (User-uploaded content)
 # https://docs.djangoproject.com/en/6.0/topics/files/
 
@@ -230,6 +283,12 @@ MEDIA_ROOT = BASE_DIR / "media"
 STRIPE_SECRET_KEY = os.environ.get("STRIPE_SECRET_KEY", "")
 STRIPE_PUBLISHABLE_KEY = os.environ.get("STRIPE_PUBLISHABLE_KEY", "")
 STRIPE_WEBHOOK_SECRET = os.environ.get("STRIPE_WEBHOOK_SECRET", "")
+=======
+# Stripe configuration
+STRIPE_SECRET_KEY = os.environ.get('STRIPE_SECRET_KEY', '')
+STRIPE_PUBLISHABLE_KEY = os.environ.get('STRIPE_PUBLISHABLE_KEY', '')
+STRIPE_WEBHOOK_SECRET = os.environ.get('STRIPE_WEBHOOK_SECRET', '')
+>>>>>>> 453538e (Configure for Heroku deployment with PostgreSQL, Redis, and WhiteNoise)
 
 # SECURITY WARNING: keep the secret key used in production secret!
 # Additional security best practices for production
@@ -237,6 +296,7 @@ if not DEBUG:
     SECURE_SSL_REDIRECT = True
     SESSION_COOKIE_SECURE = True
     CSRF_COOKIE_SECURE = True
+<<<<<<< HEAD
 
 # ============================================
 # REST Framework Configuration
@@ -314,3 +374,10 @@ SECURE_HSTS_INCLUDE_SUBDOMAINS = True
 SECURE_HSTS_PRELOAD = True
 SECURE_BROWSER_XSS_FILTER = True
 SECURE_CONTENT_TYPE_NOSNIFF = True
+=======
+    SECURE_HSTS_SECONDS = 3600
+    SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+    SECURE_HSTS_PRELOAD = True
+    SECURE_BROWSER_XSS_FILTER = True
+    SECURE_CONTENT_TYPE_NOSNIFF = True
+>>>>>>> 453538e (Configure for Heroku deployment with PostgreSQL, Redis, and WhiteNoise)
