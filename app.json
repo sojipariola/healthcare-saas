@@ -1,0 +1,62 @@
+{
+  "name": "Healthcare SaaS",
+  "description": "Multi-tenant healthcare SaaS platform with PHI compliance",
+  "repository": "https://github.com/yourusername/healthcare-saas",
+  "logo": "",
+  "keywords": ["django", "healthcare", "saas", "hipaa", "fhir"],
+  "success_url": "/",
+  "env": {
+    "DJANGO_SECRET_KEY": {
+      "description": "Secret key for Django (auto-generated)",
+      "generator": "secret"
+    },
+    "DJANGO_DEBUG": {
+      "description": "Enable debug mode (should be False in production)",
+      "value": "False"
+    },
+    "DJANGO_ALLOWED_HOSTS": {
+      "description": "Comma-separated list of allowed hosts",
+      "value": ".herokuapp.com"
+    },
+    "STRIPE_SECRET_KEY": {
+      "description": "Stripe secret key for billing",
+      "required": false
+    },
+    "STRIPE_PUBLISHABLE_KEY": {
+      "description": "Stripe publishable key for billing",
+      "required": false
+    },
+    "STRIPE_WEBHOOK_SECRET": {
+      "description": "Stripe webhook secret for event handling",
+      "required": false
+    }
+  },
+  "formation": {
+    "web": {
+      "quantity": 1,
+      "size": "basic"
+    },
+    "worker": {
+      "quantity": 1,
+      "size": "basic"
+    }
+  },
+  "addons": [
+    {
+      "plan": "heroku-postgresql:mini",
+      "as": "DATABASE"
+    },
+    {
+      "plan": "heroku-redis:mini",
+      "as": "REDIS"
+    }
+  ],
+  "buildpacks": [
+    {
+      "url": "heroku/python"
+    }
+  ],
+  "scripts": {
+    "postdeploy": "python manage.py migrate && python manage.py collectstatic --noinput"
+  }
+}
