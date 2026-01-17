@@ -1,4 +1,7 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 1f4517e (Make landing page fully responsive for mobile, tablet, and desktop)
 /* ============================================
    RESPONSIVE LANDING PAGE - MOBILE FIRST
    ============================================ */
@@ -36,21 +39,32 @@
   position: relative;
   z-index: 1;
   animation: fadeInUp 0.8s ease-out;
+<<<<<<< HEAD
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 100%;
   padding: 0 1rem;
+=======
+>>>>>>> 1f4517e (Make landing page fully responsive for mobile, tablet, and desktop)
 }
 
 .hero-image {
   width: 100%;
+<<<<<<< HEAD
   max-width: 90%;
   height: auto;
   display: block;
   margin: 0 auto 1.5rem auto;
   border-radius: 12px;
   object-fit: contain;
+=======
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin-bottom: 1.5rem;
+  border-radius: 12px;
+>>>>>>> 1f4517e (Make landing page fully responsive for mobile, tablet, and desktop)
 }
 
 .hero-text h1 {
@@ -344,10 +358,13 @@
     padding: 3rem 1.5rem;
   }
 
+<<<<<<< HEAD
   .hero-image {
     max-width: 85%;
   }
 
+=======
+>>>>>>> 1f4517e (Make landing page fully responsive for mobile, tablet, and desktop)
   .hero-text h1 {
     font-size: 2.25rem;
   }
@@ -401,10 +418,13 @@
     padding: 4rem 2rem;
   }
 
+<<<<<<< HEAD
   .hero-image {
     max-width: 80%;
   }
 
+=======
+>>>>>>> 1f4517e (Make landing page fully responsive for mobile, tablet, and desktop)
   .hero-text h1 {
     font-size: 2.75rem;
   }
@@ -498,10 +518,13 @@
     padding: 5rem 2rem 4rem 2rem;
   }
 
+<<<<<<< HEAD
   .hero-image {
     max-width: 75%;
   }
 
+=======
+>>>>>>> 1f4517e (Make landing page fully responsive for mobile, tablet, and desktop)
   .features, .testimonials, .subscription {
     padding: 5rem 2rem;
   }
@@ -546,6 +569,7 @@
     font-size: 0.85rem;
   }
 }
+<<<<<<< HEAD
 =======
 body { font-family: 'Segoe UI', Arial, sans-serif; background: #f8fafc; margin: 0; }
 .hero { background: linear-gradient(90deg, #0a3454 60%, #1e5f8a 100%); color: #fff; padding: 4rem 0; text-align: center; }
@@ -568,4 +592,6 @@ body { font-family: 'Segoe UI', Arial, sans-serif; background: #f8fafc; margin: 
 .price { font-size: 2rem; color: #0f4c81; margin: 1rem 0; }
 @media (max-width: 900px) { .feature-grid, .plans { flex-direction: column; align-items: center; } }
 >>>>>>> 11b5166 (Major feature updates: pagination, live search, admin dashboard, and bug fixes)
+=======
+>>>>>>> 1f4517e (Make landing page fully responsive for mobile, tablet, and desktop)
 
