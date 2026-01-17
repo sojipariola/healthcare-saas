@@ -18,13 +18,9 @@ from django.contrib import admin
 from django.contrib.auth import views as auth_views
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
-<<<<<<< HEAD
 from django.urls import path, include
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView
-=======
-from django.urls import path
->>>>>>> 11b5166 (Major feature updates: pagination, live search, admin dashboard, and bug fixes)
 
 from analytics.views import (
     analytics_dashboard,
@@ -225,18 +221,13 @@ urlpatterns = [
         name="create_portal_session",
     ),
     path("billing/webhook/", stripe_webhook, name="stripe_webhook"),
-<<<<<<< HEAD
-    
     # API v1 endpoints
     path("api/v1/", include("api.v1.urls")),
     path("api/v1/auth/token/", TokenObtainPairView.as_view(), name="token_obtain_pair"),
     path("api/v1/auth/token/refresh/", TokenRefreshView.as_view(), name="token_refresh"),
-    
     # API Documentation
     path("api/schema/", SpectacularAPIView.as_view(), name="schema"),
     path("api/docs/", SpectacularSwaggerView.as_view(url_name="schema"), name="swagger-ui"),
-=======
->>>>>>> 11b5166 (Major feature updates: pagination, live search, admin dashboard, and bug fixes)
 ]
 
 # Serve media files during development
