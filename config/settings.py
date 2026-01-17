@@ -7,6 +7,7 @@ from pathlib import Path
 import dj_database_url
 from celery.schedules import crontab
 from dotenv import load_dotenv
+from datetime import timedelta
 
 CELERY_BEAT_SCHEDULE = {
     "send-weekly-trial-expiry-notifications": {
@@ -155,11 +156,21 @@ DEBUG = os.environ.get("DJANGO_DEBUG", "True") == "True"
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> 11b5166 (Major feature updates: pagination, live search, admin dashboard, and bug fixes)
 ALLOWED_HOSTS = os.environ.get(
     "DJANGO_ALLOWED_HOSTS", "localhost,127.0.0.1,[::1]"
 ).split(",")
+=======
+# Allow hosts configuration
+ALLOWED_HOSTS = [
+    "healthcare-saas-app-83507e23ea58.herokuapp.com",
+    "localhost",
+    "127.0.0.1",
+    "[::1]",
+]
+>>>>>>> eab6610 (Update Login component and other changes)
 
 # Site URL for emails and absolute URLs
 SITE_URL = os.environ.get("SITE_URL", "http://localhost:8000")
@@ -379,7 +390,7 @@ REST_FRAMEWORK = {
 }
 
 # JWT Configuration
-from datetime import timedelta
+
 SIMPLE_JWT = {
     "ACCESS_TOKEN_LIFETIME": timedelta(hours=1),
     "REFRESH_TOKEN_LIFETIME": timedelta(days=7),
@@ -422,6 +433,7 @@ SECURE_HSTS_INCLUDE_SUBDOMAINS = True
 SECURE_HSTS_PRELOAD = True
 SECURE_BROWSER_XSS_FILTER = True
 SECURE_CONTENT_TYPE_NOSNIFF = True
+<<<<<<< HEAD
 =======
     SECURE_HSTS_SECONDS = 3600
     SECURE_HSTS_INCLUDE_SUBDOMAINS = True
@@ -429,3 +441,7 @@ SECURE_CONTENT_TYPE_NOSNIFF = True
     SECURE_BROWSER_XSS_FILTER = True
     SECURE_CONTENT_TYPE_NOSNIFF = True
 >>>>>>> 453538e (Configure for Heroku deployment with PostgreSQL, Redis, and WhiteNoise)
+=======
+
+CORS_ALLOW_ALL_ORIGINS = True  # For development only; restrict in production
+>>>>>>> eab6610 (Update Login component and other changes)
