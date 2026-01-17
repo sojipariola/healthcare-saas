@@ -260,6 +260,7 @@
 @media (max-width: 768px) {
   .accordion-nav {
     position: relative;
+    z-index: 40;
   }
 
   .accordion-menu {
@@ -298,6 +299,10 @@
 }
 
 @media (max-width: 480px) {
+  .accordion-nav {
+    z-index: 40;
+  }
+
   .accordion-toggle .arrow {
     font-size: 0.55rem;
   }
