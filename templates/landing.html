@@ -1,8 +1,9 @@
 {% extends 'base/base.html' %}
+{% load static %}
 {% block title %}Welcome to ClinicCloud{% endblock %}
 {% block extra_head %}
-<link rel="stylesheet" href="/static/css/landing.css">
-<script src="/static/js/landing.js" defer></script>
+<link rel="stylesheet" href="{% static 'css/landing.css' %}">
+<script src="{% static 'js/landing.js' %}" defer></script>
 <meta name="description" content="ClinicCloud: World-class, secure, multi-tenant healthcare SaaS platform. PHI-compliant, modular, and AI-ready.">
 <meta property="og:title" content="ClinicCloud - Modern Healthcare SaaS" />
 <meta property="og:description" content="World-class, secure, multi-tenant healthcare SaaS platform. PHI-compliant, modular, and AI-ready." />
@@ -17,7 +18,7 @@
 {% include 'includes/flashmessages.html' %}
 <section class="hero">
   <div class="hero-content">
-    <img src="/static/img/landing_graphic.png" alt="ClinicCloud Graphic" style="max-width:100%;height:auto;margin-bottom:2rem;">
+    <img src="{% static 'img/landing_graphic.svg' %}" alt="ClinicCloud Graphic" style="max-width:100%;height:auto;margin-bottom:2rem;">
     <h2>Transform Your Healthcare Practice</h2>
     <p>World-class, secure, and modular SaaS for modern healthcare teams. Multi-tenant, PHI-compliant, and ready for scale.</p>
     <p>Join thousands of healthcare professionals revolutionizing patient care.</p>
