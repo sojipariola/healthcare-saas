@@ -1,0 +1,27 @@
+version: '3.9'
+
+# Development override for docker-compose.yml
+# Usage: docker-compose -f docker-compose.yml -f docker-compose.dev.yml up
+
+services:
+  web:
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - .:/app
+    environment:
+      - DEBUG=True
+      - DJANGO_SETTINGS_MODULE=healthcare_saas.settings
+    ports:
+      - "8000:8000"
+
+  db:
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_DB=healthcare_db_dev
+      - POSTGRES_USER=dev_user
+      - POSTGRES_PASSWORD=dev_pass
+
+  redis:
+    ports:
+      - "6379:6379"
