@@ -3,7 +3,7 @@ Billing and invoicing models
 """
 from django.db import models
 from django.contrib.auth.models import User
-from django_cryptography.fields import encrypt
+from healthcare_saas.fields import EncryptedCharField, EncryptedTextField
 from patients.models import Patient
 from appointments.models import Appointment
 from clinical_records.models import ClinicalRecord
@@ -53,7 +53,7 @@ class Invoice(models.Model):
     )
     
     # Payment information (encrypted)
-    payment_method = encrypt(models.CharField(
+    payment_method = EncryptedCharField(
         max_length=50,
         choices=[
             ('cash', 'Cash'),
@@ -64,13 +64,13 @@ class Invoice(models.Model):
             ('check', 'Check'),
         ],
         blank=True
-    ))
+    )
     
     payment_date = models.DateTimeField(null=True, blank=True)
     notes = models.TextField(blank=True)
     
     # Insurance claim information
-    insurance_claim_number = encrypt(models.CharField(max_length=100, blank=True))
+    insurance_claim_number = EncryptedCharField(max_length=100, blank=True)
     insurance_paid_amount = models.DecimalField(max_digits=10, decimal_places=2, default=0)
     patient_responsibility = models.DecimalField(max_digits=10, decimal_places=2, default=0)
     
@@ -132,7 +132,7 @@ class Payment(models.Model):
     payment_date = models.DateTimeField(auto_now_add=True)
     amount = models.DecimalField(max_digits=10, decimal_places=2)
     
-    payment_method = encrypt(models.CharField(
+    payment_method = EncryptedCharField(
         max_length=50,
         choices=[
             ('cash', 'Cash'),
@@ -142,11 +142,11 @@ class Payment(models.Model):
             ('bank_transfer', 'Bank Transfer'),
             ('check', 'Check'),
         ]
-    ))
+    )
     
     # Encrypted transaction details
-    transaction_id = encrypt(models.CharField(max_length=100, blank=True))
-    reference_number = encrypt(models.CharField(max_length=100, blank=True))
+    transaction_id = EncryptedCharField(max_length=100, blank=True)
+    reference_number = EncryptedCharField(max_length=100, blank=True)
     
     notes = models.TextField(blank=True)
     processed_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
@@ -166,9 +166,9 @@ class InsuranceClaim(models.Model):
     patient = models.ForeignKey(Patient, on_delete=models.CASCADE, related_name='insurance_claims')
     
     # Claim information (encrypted)
-    claim_number = encrypt(models.CharField(max_length=100, unique=True))
-    insurance_provider = encrypt(models.CharField(max_length=200))
-    policy_number = encrypt(models.CharField(max_length=100))
+    claim_number = EncryptedCharField(max_length=100, unique=True)
+    insurance_provider = EncryptedCharField(max_length=200)
+    policy_number = EncryptedCharField(max_length=100)
     
     claim_amount = models.DecimalField(max_digits=10, decimal_places=2)
     approved_amount = models.DecimalField(max_digits=10, decimal_places=2, default=0)
@@ -193,7 +193,7 @@ class InsuranceClaim(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     
-    notes = encrypt(models.TextField(blank=True))
+    notes = EncryptedTextField(blank=True)
     
     class Meta:
         ordering = ['-created_at']

@@ -3,7 +3,7 @@ Clinical records models with encrypted medical data
 """
 from django.db import models
 from django.contrib.auth.models import User
-from django_cryptography.fields import encrypt
+from healthcare_saas.fields import EncryptedTextField, EncryptedCharField
 from patients.models import Patient
 from appointments.models import Appointment
 
@@ -23,8 +23,8 @@ class ClinicalRecord(models.Model):
     provider = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
     
     # Encrypted clinical data
-    chief_complaint = encrypt(models.TextField(help_text="Patient's main complaint"))
-    history_of_present_illness = encrypt(models.TextField(blank=True))
+    chief_complaint = EncryptedTextField(help_text="Patient's main complaint")
+    history_of_present_illness = EncryptedTextField(blank=True)
     
     # Vital signs
     temperature = models.DecimalField(max_digits=4, decimal_places=1, null=True, blank=True)
@@ -37,10 +37,10 @@ class ClinicalRecord(models.Model):
     height_cm = models.DecimalField(max_digits=5, decimal_places=2, null=True, blank=True)
     
     # Encrypted assessment and plan
-    physical_examination = encrypt(models.TextField(blank=True))
-    assessment = encrypt(models.TextField(blank=True))
-    diagnosis = encrypt(models.TextField(blank=True))
-    treatment_plan = encrypt(models.TextField(blank=True))
+    physical_examination = EncryptedTextField(blank=True)
+    assessment = EncryptedTextField(blank=True)
+    diagnosis = EncryptedTextField(blank=True)
+    treatment_plan = EncryptedTextField(blank=True)
     
     # ICD-10 codes
     icd10_codes = models.JSONField(default=list, blank=True)
@@ -79,11 +79,11 @@ class Prescription(models.Model):
     prescribed_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
     
     # Encrypted prescription details
-    medication_name = encrypt(models.CharField(max_length=200))
-    dosage = encrypt(models.CharField(max_length=100))
-    frequency = encrypt(models.CharField(max_length=100))
-    duration = encrypt(models.CharField(max_length=100))
-    instructions = encrypt(models.TextField(blank=True))
+    medication_name = EncryptedCharField(max_length=200)
+    dosage = EncryptedCharField(max_length=100)
+    frequency = EncryptedCharField(max_length=100)
+    duration = EncryptedCharField(max_length=100)
+    instructions = EncryptedTextField(blank=True)
     
     # Prescription metadata
     quantity = models.IntegerField()
@@ -131,7 +131,7 @@ class LabResult(models.Model):
     test_code = models.CharField(max_length=50, blank=True)
     
     # Encrypted results
-    result_value = encrypt(models.TextField())
+    result_value = EncryptedTextField()
     result_unit = models.CharField(max_length=50, blank=True)
     reference_range = models.CharField(max_length=100, blank=True)
     
@@ -147,7 +147,7 @@ class LabResult(models.Model):
     )
     
     is_abnormal = models.BooleanField(default=False)
-    notes = encrypt(models.TextField(blank=True))
+    notes = EncryptedTextField(blank=True)
     
     # Timestamps
     ordered_date = models.DateTimeField(auto_now_add=True)
@@ -189,8 +189,8 @@ class ImagingStudy(models.Model):
     body_part = models.CharField(max_length=100)
     
     # Encrypted findings
-    findings = encrypt(models.TextField(blank=True))
-    impression = encrypt(models.TextField(blank=True))
+    findings = EncryptedTextField(blank=True)
+    impression = EncryptedTextField(blank=True)
     
     status = models.CharField(
         max_length=20,
@@ -204,7 +204,7 @@ class ImagingStudy(models.Model):
     )
     
     # Image storage (encrypted path)
-    image_url = encrypt(models.CharField(max_length=500, blank=True))
+    image_url = EncryptedCharField(max_length=500, blank=True)
     
     # Timestamps
     ordered_date = models.DateTimeField(auto_now_add=True)

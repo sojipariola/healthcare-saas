@@ -4,7 +4,12 @@ All sensitive data is encrypted at rest for HIPAA compliance
 """
 from django.db import models
 from django.contrib.auth.models import User
-from django_cryptography.fields import encrypt
+from healthcare_saas.fields import (
+    EncryptedCharField, 
+    EncryptedTextField, 
+    EncryptedEmailField,
+    EncryptedDateField
+)
 
 
 class Patient(models.Model):
@@ -18,18 +23,18 @@ class Patient(models.Model):
     is_active = models.BooleanField(default=True)
     
     # Encrypted personal information (PHI)
-    first_name = encrypt(models.CharField(max_length=100))
-    last_name = encrypt(models.CharField(max_length=100))
-    date_of_birth = encrypt(models.DateField())
-    ssn = encrypt(models.CharField(max_length=11, blank=True))  # Social Security Number
+    first_name = EncryptedCharField(max_length=100)
+    last_name = EncryptedCharField(max_length=100)
+    date_of_birth = EncryptedDateField()
+    ssn = EncryptedCharField(max_length=11, blank=True)  # Social Security Number
     
     # Encrypted contact information
-    email = encrypt(models.EmailField(blank=True))
-    phone = encrypt(models.CharField(max_length=20, blank=True))
-    address = encrypt(models.TextField(blank=True))
-    city = encrypt(models.CharField(max_length=100, blank=True))
-    state = encrypt(models.CharField(max_length=50, blank=True))
-    zip_code = encrypt(models.CharField(max_length=10, blank=True))
+    email = EncryptedEmailField(blank=True)
+    phone = EncryptedCharField(max_length=20, blank=True)
+    address = EncryptedTextField(blank=True)
+    city = EncryptedCharField(max_length=100, blank=True)
+    state = EncryptedCharField(max_length=50, blank=True)
+    zip_code = EncryptedCharField(max_length=10, blank=True)
     
     # Demographics
     gender = models.CharField(
@@ -44,14 +49,14 @@ class Patient(models.Model):
     )
     
     # Encrypted emergency contact
-    emergency_contact_name = encrypt(models.CharField(max_length=100, blank=True))
-    emergency_contact_phone = encrypt(models.CharField(max_length=20, blank=True))
-    emergency_contact_relationship = encrypt(models.CharField(max_length=50, blank=True))
+    emergency_contact_name = EncryptedCharField(max_length=100, blank=True)
+    emergency_contact_phone = EncryptedCharField(max_length=20, blank=True)
+    emergency_contact_relationship = EncryptedCharField(max_length=50, blank=True)
     
     # Insurance information (encrypted)
-    insurance_provider = encrypt(models.CharField(max_length=100, blank=True))
-    insurance_policy_number = encrypt(models.CharField(max_length=100, blank=True))
-    insurance_group_number = encrypt(models.CharField(max_length=100, blank=True))
+    insurance_provider = EncryptedCharField(max_length=100, blank=True)
+    insurance_policy_number = EncryptedCharField(max_length=100, blank=True)
+    insurance_group_number = EncryptedCharField(max_length=100, blank=True)
     
     # Medical information
     blood_type = models.CharField(
@@ -65,9 +70,9 @@ class Patient(models.Model):
         blank=True
     )
     
-    allergies = encrypt(models.TextField(blank=True, help_text="List of known allergies"))
-    current_medications = encrypt(models.TextField(blank=True))
-    medical_history = encrypt(models.TextField(blank=True))
+    allergies = EncryptedTextField(blank=True, help_text="List of known allergies")
+    current_medications = EncryptedTextField(blank=True)
+    medical_history = EncryptedTextField(blank=True)
     
     # Consent and compliance
     consent_to_treat = models.BooleanField(default=False)
@@ -108,8 +113,8 @@ class PatientNote(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     
     # Encrypted note content
-    title = encrypt(models.CharField(max_length=200))
-    content = encrypt(models.TextField())
+    title = EncryptedCharField(max_length=200)
+    content = EncryptedTextField()
     
     note_type = models.CharField(
         max_length=50,

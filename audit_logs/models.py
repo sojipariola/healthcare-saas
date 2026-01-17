@@ -74,7 +74,7 @@ class AuditLog(models.Model):
         ]
         # Make the model immutable after creation
         permissions = [
-            ("view_auditlog", "Can view audit logs"),
+            ("access_auditlog", "Can access audit logs"),
             # Note: No add, change, or delete permissions should be granted
         ]
     
