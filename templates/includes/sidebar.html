@@ -1,28 +1,622 @@
-<aside class="sidebar">
-  <ul>
-    <li><a href="/">Home</a></li>
-    {% if user.is_authenticated %}
-        <li><a href="/patients/">Patients</a></li>
-        <li><a href="/appointments/">Appointments</a></li>
-        <li><a href="/referrals/">Referrals</a></li>
-        <li><a href="/clinical-records/">Clinical Records</a></li>
-        <li><a href="/labs/">Lab Results</a></li>
-        <li><a href="/documents/upload/">Upload Document</a></li>
-        <li><a href="/clinical-records/ai-note/">AI Note-Taking</a></li>
-        <li><a href="/clinical-records/clinic-note/create/">Clinic-Specific Note</a></li>
-        <li><a href="/analytics/dashboard/">Analytics</a></li>
-        <li><a href="/dashboard/">Dashboard</a></li>
-        <li><a href="/billing/">Billing</a></li>
-        <li><a href="{% url 'fhir_info' %}">FHIR API</a></li>
-      {% if user.is_staff or user.is_superuser %}
-        <li><a href="/audit_logs/">Audit Logs</a></li>
-        <li><a href="/admin/">Admin</a></li>
+<aside class="sidebar" aria-label="Sidebar navigation">
+  <div class="sidebar-header">
+    <h2 class="sidebar-title">Navigation</h2>
+    <button class="sidebar-toggle" aria-label="Toggle sidebar">
+      <svg width="16" height="16" fill="currentColor" aria-hidden="true">
+        <path d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"/>
+      </svg>
+    </button>
+  </div>
+  
+  <nav class="sidebar-nav">
+    <ul class="sidebar-menu">
+      <li class="sidebar-item">
+        <a href="/" class="sidebar-link">
+          <span class="sidebar-icon" aria-hidden="true">🏠</span>
+          <span class="sidebar-text">Home</span>
+        </a>
+      </li>
+      
+      {% if user.is_authenticated %}
+        <!-- Patient Management -->
+        <li class="sidebar-item">
+          <a href="/patients/" class="sidebar-link">
+            <span class="sidebar-icon" aria-hidden="true">👤</span>
+            <span class="sidebar-text">Patients</span>
+          </a>
+        </li>
+        
+        <!-- Appointments -->
+        <li class="sidebar-item">
+          <a href="/appointments/" class="sidebar-link">
+            <span class="sidebar-icon" aria-hidden="true">📅</span>
+            <span class="sidebar-text">Appointments</span>
+          </a>
+        </li>
+        
+        <!-- Referrals -->
+        <li class="sidebar-item">
+          <a href="/referrals/" class="sidebar-link">
+            <span class="sidebar-icon" aria-hidden="true">🔗</span>
+            <span class="sidebar-text">Referrals</span>
+          </a>
+        </li>
+        
+        <!-- Clinical Records -->
+        <li class="sidebar-item has-submenu">
+          <button class="sidebar-link submenu-toggle">
+            <span class="sidebar-icon" aria-hidden="true">📝</span>
+            <span class="sidebar-text">Clinical Records</span>
+            <span class="submenu-arrow" aria-hidden="true">›</span>
+          </button>
+          <ul class="sidebar-submenu">
+            <li><a href="/clinical-records/">All Records</a></li>
+            <li><a href="/clinical-records/notes/">Notes</a></li>
+            <li><a href="/clinical-records/clinic-note/create/">Clinic-Specific Note</a></li>
+          </ul>
+        </li>
+        
+        <!-- Lab Results -->
+        <li class="sidebar-item">
+          <a href="/labs/" class="sidebar-link">
+            <span class="sidebar-icon" aria-hidden="true">🧪</span>
+            <span class="sidebar-text">Lab Results</span>
+          </a>
+        </li>
+        
+        <!-- Document Upload -->
+        <li class="sidebar-item">
+          <a href="/documents/upload/" class="sidebar-link">
+            <span class="sidebar-icon" aria-hidden="true">📤</span>
+            <span class="sidebar-text">Upload Document</span>
+          </a>
+        </li>
+        
+        <!-- AI Features -->
+        <li class="sidebar-item">
+          <a href="/clinical-records/ai-note/" class="sidebar-link">
+            <span class="sidebar-icon" aria-hidden="true">🤖</span>
+            <span class="sidebar-text">AI Note-Taking</span>
+          </a>
+        </li>
+        
+        <!-- Analytics -->
+        <li class="sidebar-item">
+          <a href="/analytics/dashboard/" class="sidebar-link">
+            <span class="sidebar-icon" aria-hidden="true">📊</span>
+            <span class="sidebar-text">Analytics</span>
+          </a>
+        </li>
+        
+        <!-- Dashboard -->
+        <li class="sidebar-item">
+          <a href="/dashboard/" class="sidebar-link">
+            <span class="sidebar-icon" aria-hidden="true">📋</span>
+            <span class="sidebar-text">Dashboard</span>
+          </a>
+        </li>
+        
+        <!-- Billing -->
+        <li class="sidebar-item">
+          <a href="/billing/" class="sidebar-link">
+            <span class="sidebar-icon" aria-hidden="true">💳</span>
+            <span class="sidebar-text">Billing</span>
+          </a>
+        </li>
+        
+        <!-- FHIR API -->
+        <li class="sidebar-item">
+          <a href="{% url 'fhir_info' %}" class="sidebar-link">
+            <span class="sidebar-icon" aria-hidden="true">🔗</span>
+            <span class="sidebar-text">FHIR API</span>
+          </a>
+        </li>
+        
+        <!-- Admin Section -->
+        {% if user.is_staff or user.is_superuser %}
+          <li class="sidebar-divider"></li>
+          <li class="sidebar-header-item">
+            <span class="sidebar-text">Administration</span>
+          </li>
+          <li class="sidebar-item">
+            <a href="/audit_logs/" class="sidebar-link">
+              <span class="sidebar-icon" aria-hidden="true">🕵️</span>
+              <span class="sidebar-text">Audit Logs</span>
+            </a>
+          </li>
+          <li class="sidebar-item">
+            <a href="/admin/" class="sidebar-link">
+              <span class="sidebar-icon" aria-hidden="true">⚙️</span>
+              <span class="sidebar-text">Admin Panel</span>
+            </a>
+          </li>
+        {% endif %}
+        
       {% endif %}
-    {% endif %}
-    <li><a href="{% url 'login' %}">Login</a></li>
-    <li><a href="{% url 'register' %}">Register</a></li>
-  </ul>
-  <script src="/static/js/sidebar_accordion.js"></script>
+      
+      <!-- Authentication -->
+      <li class="sidebar-divider"></li>
+      <li class="sidebar-item">
+        <a href="{% url 'login' %}" class="sidebar-link">
+          <span class="sidebar-icon" aria-hidden="true">🔑</span>
+          <span class="sidebar-text">Login</span>
+        </a>
+      </li>
+      <li class="sidebar-item">
+        <a href="{% url 'register' %}" class="sidebar-link">
+          <span class="sidebar-icon" aria-hidden="true">📝</span>
+          <span class="sidebar-text">Register</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+  
+  <!-- Sidebar Footer -->
+  <div class="sidebar-footer">
+    <div class="user-info">
+      {% if user.is_authenticated %}
+        <div class="user-avatar">
+          <span aria-hidden="true">👤</span>
+        </div>
+        <div class="user-details">
+          <span class="user-name">{{ user.get_full_name|default:user.username|truncatechars:20 }}</span>
+          <span class="user-role">
+            {% if user.is_superuser %}Super Admin{% elif user.is_staff %}Staff{% else %}User{% endif %}
+          </span>
+        </div>
+      {% else %}
+        <div class="guest-message">
+          <p>Welcome to ClinicCloud</p>
+          <a href="{% url 'login' %}" class="guest-login">Sign in</a>
+        </div>
+      {% endif %}
+    </div>
+  </div>
 </aside>
 
+<style>
+  .sidebar {
+    background: #fff;
+    border-right: 1px solid #e5e7eb;
+    width: 260px;
+    min-height: calc(100vh - 140px);
+    display: flex;
+    flex-direction: column;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    z-index: 100;
+  }
+  
+  .sidebar.collapsed {
+    width: 70px;
+  }
+  
+  .sidebar.collapsed .sidebar-text,
+  .sidebar.collapsed .submenu-arrow,
+  .sidebar.collapsed .user-details,
+  .sidebar.collapsed .guest-message p,
+  .sidebar.collapsed .sidebar-title,
+  .sidebar.collapsed .sidebar-header-item .sidebar-text {
+    display: none;
+  }
+  
+  .sidebar.collapsed .sidebar-icon {
+    margin-right: 0;
+    font-size: 1.2rem;
+  }
+  
+  .sidebar.collapsed .sidebar-link {
+    justify-content: center;
+    padding: 0.75rem;
+  }
+  
+  .sidebar.collapsed .sidebar-submenu {
+    display: none !important;
+  }
+  
+  .sidebar-header {
+    padding: 1.5rem 1.25rem 1rem;
+    border-bottom: 1px solid #e5e7eb;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  .sidebar-title {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #6b7280;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin: 0;
+  }
+  
+  .sidebar-toggle {
+    background: none;
+    border: none;
+    width: 32px;
+    height: 32px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: #6b7280;
+    transition: all 0.2s;
+    padding: 0;
+  }
+  
+  .sidebar-toggle:hover {
+    background: #f3f4f6;
+    color: var(--primary-blue);
+  }
+  
+  .sidebar-nav {
+    flex: 1;
+    padding: 1rem 0.75rem;
+    overflow-y: auto;
+  }
+  
+  .sidebar-menu {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .sidebar-item {
+    margin-bottom: 0.25rem;
+  }
+  
+  .sidebar-link {
+    display: flex;
+    align-items: center;
+    padding: 0.75rem 1rem;
+    color: #374151;
+    text-decoration: none;
+    border-radius: 8px;
+    transition: all 0.2s;
+    background: none;
+    border: none;
+    width: 100%;
+    text-align: left;
+    font: inherit;
+    cursor: pointer;
+  }
+  
+  .sidebar-link:hover {
+    background: #f3f4f6;
+    color: var(--primary-blue);
+  }
+  
+  .sidebar-link.active {
+    background: var(--primary-blue);
+    color: white;
+  }
+  
+  .sidebar-icon {
+    font-size: 1.1rem;
+    margin-right: 0.75rem;
+    width: 20px;
+    text-align: center;
+  }
+  
+  .sidebar-text {
+    flex: 1;
+    font-size: 0.95rem;
+    font-weight: 500;
+  }
+  
+  .submenu-arrow {
+    font-size: 1rem;
+    transition: transform 0.2s;
+  }
+  
+  .has-submenu.open .submenu-arrow {
+    transform: rotate(90deg);
+  }
+  
+  .sidebar-submenu {
+    list-style: none;
+    padding: 0.5rem 0 0.5rem 2.5rem;
+    margin: 0;
+    display: none;
+  }
+  
+  .has-submenu.open .sidebar-submenu {
+    display: block;
+    animation: slideDown 0.2s ease-out;
+  }
+  
+  .sidebar-submenu li {
+    margin-bottom: 0.25rem;
+  }
+  
+  .sidebar-submenu a {
+    display: block;
+    padding: 0.5rem 0.75rem;
+    color: #6b7280;
+    text-decoration: none;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    transition: all 0.2s;
+  }
+  
+  .sidebar-submenu a:hover {
+    background: #f3f4f6;
+    color: var(--primary-blue);
+  }
+  
+  .sidebar-divider {
+    height: 1px;
+    background: #e5e7eb;
+    margin: 1rem 0;
+  }
+  
+  .sidebar-header-item {
+    padding: 0.5rem 1rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .sidebar-header-item .sidebar-text {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #6b7280;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  
+  .sidebar-footer {
+    padding: 1rem;
+    border-top: 1px solid #e5e7eb;
+    margin-top: auto;
+  }
+  
+  .user-info {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+  
+  .user-avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: var(--primary-blue);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    flex-shrink: 0;
+  }
+  
+  .user-details {
+    flex: 1;
+    min-width: 0;
+  }
+  
+  .user-name {
+    display: block;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #111827;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  
+  .user-role {
+    display: block;
+    font-size: 0.75rem;
+    color: #6b7280;
+  }
+  
+  .guest-message {
+    text-align: center;
+  }
+  
+  .guest-message p {
+    margin: 0 0 0.5rem;
+    font-size: 0.875rem;
+    color: #6b7280;
+  }
+  
+  .guest-login {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    background: var(--primary-blue);
+    color: white;
+    text-decoration: none;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    transition: background 0.2s;
+  }
+  
+  .guest-login:hover {
+    background: var(--secondary-blue);
+  }
+  
+  @keyframes slideDown {
+    from {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .sidebar {
+      position: fixed;
+      left: 0;
+      top: 0;
+      height: 100vh;
+      transform: translateX(-100%);
+      z-index: 1000;
+      box-shadow: 0 0 0 100vmax rgba(0, 0, 0, 0);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    
+    .sidebar.open {
+      transform: translateX(0);
+      box-shadow: 0 0 0 100vmax rgba(0, 0, 0, 0.3);
+    }
+    
+    .sidebar-toggle {
+      display: none;
+    }
+    
+    .layout {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
 
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const sidebar = document.querySelector('.sidebar');
+    const sidebarToggle = document.querySelector('.sidebar-toggle');
+    const submenuToggles = document.querySelectorAll('.submenu-toggle');
+    const mobileBreakpoint = 768;
+    
+    // Toggle sidebar collapse/expand
+    if (sidebarToggle) {
+      sidebarToggle.addEventListener('click', function() {
+        sidebar.classList.toggle('collapsed');
+        
+        // Store preference in localStorage
+        const isCollapsed = sidebar.classList.contains('collapsed');
+        localStorage.setItem('sidebarCollapsed', isCollapsed);
+        
+        // Update aria-label
+        this.setAttribute('aria-label', isCollapsed ? 'Expand sidebar' : 'Collapse sidebar');
+      });
+      
+      // Load saved preference
+      const savedCollapsed = localStorage.getItem('sidebarCollapsed') === 'true';
+      if (savedCollapsed && window.innerWidth > mobileBreakpoint) {
+        sidebar.classList.add('collapsed');
+        sidebarToggle.setAttribute('aria-label', 'Expand sidebar');
+      }
+    }
+    
+    // Submenu toggle functionality
+    submenuToggles.forEach(toggle => {
+      toggle.addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        
+        const parentItem = this.closest('.has-submenu');
+        const isOpen = parentItem.classList.contains('open');
+        
+        // Close other submenus in the same level
+        const siblings = parentItem.parentElement.querySelectorAll('.has-submenu');
+        siblings.forEach(sib => {
+          if (sib !== parentItem) {
+            sib.classList.remove('open');
+          }
+        });
+        
+        // Toggle current submenu
+        parentItem.classList.toggle('open');
+        
+        // Update aria-expanded
+        this.setAttribute('aria-expanded', !isOpen);
+      });
+    });
+    
+    // Mobile sidebar toggle (for small screens)
+    function initMobileSidebar() {
+      const mobileMenuBtn = document.createElement('button');
+      mobileMenuBtn.className = 'mobile-sidebar-toggle';
+      mobileMenuBtn.innerHTML = `
+        <svg width="20" height="20" fill="currentColor" aria-hidden="true">
+          <path d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"/>
+        </svg>
+      `;
+      mobileMenuBtn.setAttribute('aria-label', 'Open sidebar');
+      
+      // Add to header if it exists
+      const header = document.querySelector('.main-header');
+      if (header) {
+        header.appendChild(mobileMenuBtn);
+        
+        mobileMenuBtn.addEventListener('click', function() {
+          sidebar.classList.add('open');
+          document.body.style.overflow = 'hidden';
+        });
+      }
+      
+      // Close sidebar when clicking outside on mobile
+      document.addEventListener('click', function(e) {
+        if (window.innerWidth <= mobileBreakpoint && 
+            sidebar.classList.contains('open') && 
+            !sidebar.contains(e.target) && 
+            !mobileMenuBtn.contains(e.target)) {
+          sidebar.classList.remove('open');
+          document.body.style.overflow = '';
+        }
+      });
+      
+      // Close sidebar with escape key
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && sidebar.classList.contains('open')) {
+          sidebar.classList.remove('open');
+          document.body.style.overflow = '';
+        }
+      });
+    }
+    
+    // Initialize mobile sidebar if needed
+    if (window.innerWidth <= mobileBreakpoint) {
+      initMobileSidebar();
+    }
+    
+    // Handle window resize
+    let resizeTimer;
+    window.addEventListener('resize', function() {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(function() {
+        if (window.innerWidth <= mobileBreakpoint) {
+          // On mobile, ensure sidebar is not collapsed and is hidden
+          sidebar.classList.remove('collapsed');
+          sidebar.classList.remove('open');
+          document.body.style.overflow = '';
+          initMobileSidebar();
+        } else {
+          // On desktop, restore saved collapsed state
+          const mobileToggle = document.querySelector('.mobile-sidebar-toggle');
+          if (mobileToggle) mobileToggle.remove();
+          
+          const savedCollapsed = localStorage.getItem('sidebarCollapsed') === 'true';
+          if (savedCollapsed) {
+            sidebar.classList.add('collapsed');
+          }
+        }
+      }, 250);
+    });
+    
+    // Mark active sidebar item
+    const currentPath = window.location.pathname;
+    const sidebarLinks = document.querySelectorAll('.sidebar-link[href]');
+    sidebarLinks.forEach(link => {
+      if (link.getAttribute('href') === currentPath) {
+        link.classList.add('active');
+        
+        // Expand parent submenu if this is a submenu item
+        const submenuItem = link.closest('.sidebar-submenu');
+        if (submenuItem) {
+          const parentItem = submenuItem.closest('.has-submenu');
+          if (parentItem) {
+            parentItem.classList.add('open');
+            const toggle = parentItem.querySelector('.submenu-toggle');
+            if (toggle) toggle.setAttribute('aria-expanded', 'true');
+          }
+        }
+      }
+    });
+  });
+</script>
