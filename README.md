@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Healthcare SaaS Platform
 
 A multi-tenant healthcare Software-as-a-Service (SaaS) platform built with Django, designed for managing patient care, appointments, clinical records, and billing while maintaining strict HIPAA, GDPR, and NHS compliance.
@@ -87,3 +88,7 @@ Healthcare SaaS is a modern, secure healthcare management system designed for cl
    ```bash
    git clone https://github.com/sojipariola/healthcare_saas.git
    cd healthcare_saas
+=======
+# healthcare-saas
+Multi-tenant healthcare SaaS platform built with Django. Secure patient management, appointments, clinical records, and billing with HIPAA/GDPR compliance. Encrypted PHI, immutable audit logs, RBAC, FHIR integration, and AI features. Docker containerized with GitHub Actions CI/CD.
+>>>>>>> e19b986 (Initial commit)
