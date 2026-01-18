@@ -193,7 +193,9 @@ for patient in patients:
                 patient=patient,
                 from_clinic=from_clinic,
                 to_clinic=to_clinic,
+                tenant=tenant,
                 defaults={
+                    "tenant": tenant,
                     "referred_by": random.choice([admin, user1, user2]),
                     "notes": "Follow-up care and specialized treatment",
                     "accepted": random.choice([True, False]),
