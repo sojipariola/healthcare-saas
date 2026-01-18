@@ -228,6 +228,12 @@ urlpatterns = [
     # API Documentation
     path("api/schema/", SpectacularAPIView.as_view(), name="schema"),
     path("api/docs/", SpectacularSwaggerView.as_view(url_name="schema"), name="swagger-ui"),
+    # Google site verification
+    path(
+        "google421d5e7d96244ebd.html",
+        lambda request: render(request, "google421d5e7d96244ebd.html"),
+        name="google_site_verification",
+    ),
 ]
 
 # Serve media files during development
