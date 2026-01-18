@@ -20,8 +20,6 @@ from patients.models import Patient
 from referrals.models import CLINIC_TYPES, Clinic, Referral
 from tenants.models import Tenant
 
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "config.settings")
-django.setup()
 
 User = get_user_model()
 
